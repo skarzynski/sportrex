@@ -1,100 +1,160 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+@extends('layouts.layout')
+@section('title')
+    Page title
+@endsection
+@section('content')
+        <div class="flex-center position-ref full-height container">
 
-        <title>Laravel</title>
+            <!-- Page Content -->
+                    <div class="row">
 
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;600&display=swap" rel="stylesheet">
+                        <div class="col-lg-3">
 
-        <!-- Styles -->
-        <style>
-            html, body {
-                background-color: #fff;
-                color: #636b6f;
-                font-family: 'Nunito', sans-serif;
-                font-weight: 200;
-                height: 100vh;
-                margin: 0;
-            }
+                            <h1 class="my-4">Shop Name</h1>
+                            <div class="list-group">
+                                <a href="#" class="list-group-item">Category 1</a>
+                                <a href="#" class="list-group-item">Category 2</a>
+                                <a href="#" class="list-group-item">Category 3</a>
+                            </div>
 
-            .full-height {
-                height: 100vh;
-            }
+                        </div>
+                        <!-- /.col-lg-3 -->
 
-            .flex-center {
-                align-items: center;
-                display: flex;
-                justify-content: center;
-            }
+                        <div class="col-lg-9">
 
-            .position-ref {
-                position: relative;
-            }
+                            <div id="carouselExampleIndicators" class="carousel slide my-4" data-ride="carousel">
+                                <ol class="carousel-indicators">
+                                    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"/>
+                                    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                                    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                                </ol>
+                                <div class="carousel-inner" role="listbox">
+                                    <div class="carousel-item active">
+                                        <img class="d-block img-fluid" src="http://placehold.it/900x350" alt="First slide">
+                                    </div>
+                                    <div class="carousel-item">
+                                        <img class="d-block img-fluid" src="http://placehold.it/900x350" alt="Second slide">
+                                    </div>
+                                    <div class="carousel-item">
+                                        <img class="d-block img-fluid" src="http://placehold.it/900x350" alt="Third slide">
+                                    </div>
+                                </div>
+                                <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span class="sr-only">Previous</span>
+                                </a>
+                                <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span class="sr-only">Next</span>
+                                </a>
+                            </div>
 
-            .top-right {
-                position: absolute;
-                right: 10px;
-                top: 18px;
-            }
+                            <div class="row">
 
-            .content {
-                text-align: center;
-            }
+                                <div class="col-lg-4 col-md-6 mb-4">
+                                    <div class="card h-100">
+                                        <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
+                                        <div class="card-body">
+                                            <h4 class="card-title">
+                                                <a href="#">Item One</a>
+                                            </h4>
+                                            <h5>$24.99</h5>
+                                            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
+                                        </div>
+                                        <div class="card-footer">
+                                            <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
+                                        </div>
+                                    </div>
+                                </div>
 
-            .title {
-                font-size: 84px;
-            }
+                                <div class="col-lg-4 col-md-6 mb-4">
+                                    <div class="card h-100">
+                                        <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
+                                        <div class="card-body">
+                                            <h4 class="card-title">
+                                                <a href="#">Item Two</a>
+                                            </h4>
+                                            <h5>$24.99</h5>
+                                            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur! Lorem ipsum dolor sit amet.</p>
+                                        </div>
+                                        <div class="card-footer">
+                                            <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
+                                        </div>
+                                    </div>
+                                </div>
 
-            .links > a {
-                color: #636b6f;
-                padding: 0 25px;
-                font-size: 13px;
-                font-weight: 600;
-                letter-spacing: .1rem;
-                text-decoration: none;
-                text-transform: uppercase;
-            }
+                                <div class="col-lg-4 col-md-6 mb-4">
+                                    <div class="card h-100">
+                                        <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
+                                        <div class="card-body">
+                                            <h4 class="card-title">
+                                                <a href="#">Item Three</a>
+                                            </h4>
+                                            <h5>$24.99</h5>
+                                            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
+                                        </div>
+                                        <div class="card-footer">
+                                            <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
+                                        </div>
+                                    </div>
+                                </div>
 
-            .m-b-md {
-                margin-bottom: 30px;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="flex-center position-ref full-height">
-            @if (Route::has('login'))
-                <div class="top-right links">
-                    @auth
-                        <a href="{{ url('/home') }}">Home</a>
-                    @else
-                        <a href="{{ route('login') }}">Login</a>
+                                <div class="col-lg-4 col-md-6 mb-4">
+                                    <div class="card h-100">
+                                        <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
+                                        <div class="card-body">
+                                            <h4 class="card-title">
+                                                <a href="#">Item Four</a>
+                                            </h4>
+                                            <h5>$24.99</h5>
+                                            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
+                                        </div>
+                                        <div class="card-footer">
+                                            <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
+                                        </div>
+                                    </div>
+                                </div>
 
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}">Register</a>
-                        @endif
-                    @endauth
-                </div>
-            @endif
+                                <div class="col-lg-4 col-md-6 mb-4">
+                                    <div class="card h-100">
+                                        <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
+                                        <div class="card-body">
+                                            <h4 class="card-title">
+                                                <a href="#">Item Five</a>
+                                            </h4>
+                                            <h5>$24.99</h5>
+                                            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur! Lorem ipsum dolor sit amet.</p>
+                                        </div>
+                                        <div class="card-footer">
+                                            <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
+                                        </div>
+                                    </div>
+                                </div>
 
-            <div class="content">
-                <div class="title m-b-md">
-                    Laravel
-                </div>
+                                <div class="col-lg-4 col-md-6 mb-4">
+                                    <div class="card h-100">
+                                        <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
+                                        <div class="card-body">
+                                            <h4 class="card-title">
+                                                <a href="#">Item Six</a>
+                                            </h4>
+                                            <h5>$24.99</h5>
+                                            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
+                                        </div>
+                                        <div class="card-footer">
+                                            <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
+                                        </div>
+                                    </div>
+                                </div>
 
-                <div class="links">
-                    <a href="https://laravel.com/docs">Docs</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://blog.laravel.com">Blog</a>
-                    <a href="https://nova.laravel.com">Nova</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://vapor.laravel.com">Vapor</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
-                </div>
-            </div>
+                            </div>
+                            <!-- /.row -->
+
+                        </div>
+                        <!-- /.col-lg-9 -->
+
+                    </div>
+                    <!-- /.row -->
         </div>
-    </body>
-</html>
+@endsection
+
