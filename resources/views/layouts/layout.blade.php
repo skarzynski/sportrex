@@ -8,20 +8,22 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
     <title>
         @yield('title')
     </title>
 
-    <!-- Bootstrap core CSS -->
-    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Custom styles for this template -->
-    <link href="css/shop-homepage.css" rel="stylesheet">
-
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;600&display=swap" rel="stylesheet">
+    <link rel="dns-prefetch" href="//fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
     <!-- Styles -->
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/shop-homepage.css') }}" rel="stylesheet">
     <style>
         html, body {
             background-color: #fff;
@@ -79,14 +81,20 @@
 
 <body>
 
+<div id="app">
 <!-- Navigation -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top shadow-sm">
     <div class="container">
         <a class="navbar-brand" href="#">Sportrex</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
+            <!-- Left Side Of Navbar -->
+            <ul class="navbar-nav mr-auto">
+
+            </ul>
+            <!-- Right Side Of Navbar -->
             @if (Route::has('login'))
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item active">
@@ -137,20 +145,22 @@
     </div>
 </nav>
 
-@yield('content')
+<main class="py-4 position-ref full-height container">
+    @yield('content')
+</main>
 
 <!-- Footer -->
-<footer class="py-5 bg-dark">
-    <div class="container">
-        <p class="m-0 text-center text-white">Copyright &copy; Your Website 2020</p>
-    </div>
-    <!-- /.container -->
-</footer>
+{{--<footer class="py-0 bg-dark fixed-bottom">--}}
+{{--    <div class="container">--}}
+{{--        <p class="m-0 text-center text-white">Copyright &copy; Your Website 2020</p>--}}
+{{--    </div>--}}
+{{--</footer>--}}
 
 <!-- Bootstrap core JavaScript -->
-<script src="vendor/jquery/jquery.min.js"></script>
-<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
+<script src="{{ asset('js/bootstrap.bundle.min.js') }}" defer></script>
+<script src="{{ asset('js/app.js') }}" defer></script>
+<script src="{{ asset('js/jquery.min.js') }}" defer></script>
+</div>
 </body>
 
 </html>
