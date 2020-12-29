@@ -17,6 +17,38 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/cart', function () {
+    return view('cart');
+});
+
+Route::get('/delivery/{id}', function () {
+    return view('delivery');
+});
+
+Route::get('/deliveryBox/{id}', function () {
+    return view('deliveryBox');
+});
+
+Route::get('/deliveryCourier/{id}', function () {
+    return view('deliveryCourier');
+});
+
+Route::get('/deliveryPost/{id}', function () {
+    return view('deliveryPost');
+});
+
+Route::get('/orderDetails/{id}', function () {
+    return view('orderDetails');
+});
+
+Route::get('/myOrders', function () {
+    return view('myOrders');
+});
+Route::get('/checkOrder', function () {
+    return view('checkOrder');
+});
+
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
