@@ -1,12 +1,11 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
 class Order extends Model
 {
-    use HasFactory;
 
     protected $fillable =['delivery_address','price','order_date','email'];
 
@@ -23,7 +22,7 @@ class Order extends Model
     }
 
     function products() {
-        return $this->belongsToMany(Product::class)->withTimestamps();
+        return $this->belongsToMany(Product::class);
     }
 
 

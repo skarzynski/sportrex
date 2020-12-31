@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\OrderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,9 +18,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/cart', function () {
-    return view('cart');
-});
+Route::get('/cart/{order}', [OrderController::class, 'showCart']);
+
 
 Route::get('/delivery/{id}', function () {
     return view('delivery');
