@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\OrderController;
-
+use App\Http\Controllers\DeliveryController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -18,23 +18,22 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/cart/{order}', [OrderController::class, 'showCart']);
+Route::get('/cart/{order}', [OrderController::class, 'showCart'])->name('Order.cart');
+Route::post('/cart/{order}', [OrderController::class, 'recalculateCart']);
+
+Route::get('/delivery/{order}', [DeliveryController::class, 'showDeliveries'])->name('Order.deliveries');
 
 
-Route::get('/delivery/{id}', function () {
-    return view('delivery');
+Route::get('/deliveryPaczkomat/{id}', function () {
+    return view('Orders.deliveryPaczkomat');
 });
 
-Route::get('/deliveryBox/{id}', function () {
-    return view('deliveryBox');
+Route::get('/deliveryKurier/{id}', function () {
+    return view('Orders.deliveryKurier');
 });
 
-Route::get('/deliveryCourier/{id}', function () {
-    return view('deliveryCourier');
-});
-
-Route::get('/deliveryPost/{id}', function () {
-    return view('deliveryPost');
+Route::get('/deliveryPoczta/{id}', function () {
+    return view('Orders.deliveryPoczta');
 });
 
 Route::get('/orderDetails/{id}', function () {

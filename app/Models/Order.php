@@ -3,11 +3,34 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Order extends Model
 {
-
     protected $fillable =['delivery_address','price','order_date','email'];
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::retrieved(function($model){
+            $model->calculatePriceAndSave();
+        });
+        static::updated(function($model){
+            $model->calculatePriceAndSave();
+        });
+    }
+
+
+    function calculatePriceAndSave() {
+        $products = $this->products;
+        $price = 0;
+        foreach ($products as $product):
+            $price += $product->bruttoPriceWithDiscount() * $this->AmountOfProduct($product);
+        endforeach;
+        $this->price = $price;
+        $this->save();
+    }
 
     function delivery() {
         return $this->belongsTo(Delivery::class);
@@ -19,6 +42,13 @@ class Order extends Model
 
     function orderStatus() {
         return $this->belongsTo(OrderStatus::class);
+    }
+
+    function AmountOfProduct(Product $product){
+        return (DB::table('order_product')
+            ->where('order_id', '=', $this->id)
+            ->where('product_id', '=', $product->id)
+            ->get())[0]->amount_of_product;
     }
 
     function products() {

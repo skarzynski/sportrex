@@ -38,21 +38,23 @@
 
                     <div class="row">
                         <!-- Grid column -->
+                        @foreach($deliveries as $delivery)
                         <div class="col-sm">
                             <div class="md-form md-outline mb-0 mb-lg-4">
-                                <a href="{{ url('/deliveryCourier/1' ) }}" type="button" class="btn btn-primary btn-lg waves-effect waves-light">Courier</a>
+                                <a href="{{ url('/delivery'.$delivery->name.'/'.$order->id ) }}" type="button" class="btn btn-primary btn-lg waves-effect waves-light">{{$delivery->name}}</a>
                             </div>
                         </div>
-                        <div class="col-sm">
-                            <div class="md-form md-outline mb-0 mb-lg-4">
-                                <a href="{{ url('/deliveryPost/1' ) }}" type="button" class="btn btn-primary btn-lg waves-effect waves-light">Post office</a>
-                            </div>
-                        </div>
-                        <div class="col-sm">
-                            <div class="md-form md-outline mb-0 mb-lg-4">
-                                <a href="{{ url('/deliveryBox/1' ) }}" type="button" class="btn btn-primary btn-lg waves-effect waves-light">Paczkomat</a>
-                            </div>
-                        </div>
+                        @endforeach
+{{--                        <div class="col-sm">--}}
+{{--                            <div class="md-form md-outline mb-0 mb-lg-4">--}}
+{{--                                <a href="{{ url('/deliveryPost/1' ) }}" type="button" class="btn btn-primary btn-lg waves-effect waves-light">Post office</a>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                        <div class="col-sm">--}}
+{{--                            <div class="md-form md-outline mb-0 mb-lg-4">--}}
+{{--                                <a href="{{ url('/deliveryBox/1' ) }}" type="button" class="btn btn-primary btn-lg waves-effect waves-light">Paczkomat</a>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
                     </div>
                     </div>
                 </div>
@@ -65,36 +67,36 @@
             <div class="col-lg-4">
 
                 <!-- Card -->
-                <div class="card mb-4">
+                <div class="card mb-3">
                     <div class="card-body">
 
-                        <h5 class="mb-3">The total amount of</h5>
+                        <h5 class="mb-3">Suma przedmiotów</h5>
 
                         <ul class="list-group list-group-flush">
-                            <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
-                                Temporary amount
-                                <span>$53.98</span>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-between align-items-center px-0">
-                                Shipping
-                                <span>Gratis</span>
-                            </li>
+                            @foreach($products as $product)
+                                <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
+                                    {{$product->name." X ".$product->amount_in_order}}
+                                    <span>{{$product->bruttoPriceWithDiscount() * $product->amount_in_order}} zł</span>
+                                </li>
+                            @endforeach
                             <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 mb-3">
                                 <div>
-                                    <strong>The total amount of</strong>
-                                    <strong>
-                                        <p class="mb-0">(including VAT)</p>
-                                    </strong>
+                                    <strong>Całkowita cena</strong>
                                 </div>
-                                <span><strong>$53.98</strong></span>
+                                <span><strong>{{$order->price}} zł</strong></span>
                             </li>
                         </ul>
-
                         <button type="button" class="btn btn-primary btn-block waves-effect waves-light" data-toggle="modal" data-target="#paymentModal">Choose Payment</button>
                     </div>
                 </div>
                 <!-- Card -->
 
+                <!-- Card -->
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <a href="{{ url('/' ) }}" class="btn btn-primary btn-block waves-effect waves-light">Kontynuuj zakupy</a>
+                    </div>
+                </div>
                 <!-- Card -->
 
             </div>
