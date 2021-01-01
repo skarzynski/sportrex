@@ -16,37 +16,28 @@ use App\Http\Controllers\DeliveryController;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('welcome');
 
 Route::get('/cart/{order}', [OrderController::class, 'showCart'])->name('Order.cart');
 Route::post('/cart/{order}', [OrderController::class, 'recalculateCart']);
 
 Route::get('/delivery/{order}', [DeliveryController::class, 'showDeliveries'])->name('Order.deliveries');
 
+Route::get('/deliveryKurier/{order}', [DeliveryController::class, 'showKurierForm']);
+Route::get('/deliveryPoczta/{order}', [DeliveryController::class, 'showPocztaForm']);
+Route::get('/deliveryPaczkomat/{order}', [DeliveryController::class, 'showPaczkomatForm']);
+Route::post('/deliveryKurier/{order}', [DeliveryController::class, 'doneKurierForm']);
+Route::post('/deliveryPoczta/{order}', [DeliveryController::class, 'donePocztaForm']);
+Route::post('/deliveryPaczkomat/{order}', [DeliveryController::class, 'donePaczkomatForm']);
 
-Route::get('/deliveryPaczkomat/{id}', function () {
-    return view('Orders.deliveryPaczkomat');
-});
 
-Route::get('/deliveryKurier/{id}', function () {
-    return view('Orders.deliveryKurier');
-});
-
-Route::get('/deliveryPoczta/{id}', function () {
-    return view('Orders.deliveryPoczta');
-});
-
-Route::get('/orderDetails/{id}', function () {
-    return view('orderDetails');
-});
+Route::get('/orderDetails/{order}', [OrderController::class, 'orderDetails'])->name('Order.details');
 
 Route::get('/myOrders', function () {
     return view('myOrders');
 });
-Route::get('/checkOrder', function () {
-    return view('checkOrder');
-});
-
+Route::get('/checkOrder',  [OrderController::class, 'showCheckOrder']);
+Route::post('/checkOrder',  [OrderController::class, 'checkOrder']);
 
 Auth::routes();
 

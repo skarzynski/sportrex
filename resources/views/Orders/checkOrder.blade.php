@@ -9,7 +9,7 @@
             <div class=" mt-70">
                 <div class="d-flex align-items-center h-100">
                     <div class="container text-center py-5">
-                        <h3 class="mb-0">Order tracking</h3>
+                        <h3 class="mb-0">Sprawdź status zamówienia</h3>
                     </div>
                 </div>
             </div>
@@ -19,23 +19,23 @@
 
                 <!-- Grid column -->
                 <div class="col-md-6">
-
+                    <form method="POST">
+                    @csrf
                     <!--Section: Block Content-->
                     <section class="my-4">
 
-                        <form action="#!">
+
 
                             <div class="md-form md-outline">
-                                <input type="text" id="orderID" class="form-control">
-                                <label for="orderID">Order ID</label>
+                                <input type="text" id="orderID" name="id" class="form-control">
+                                <label for="orderID">Wpisz numer zamówienia</label>
                             </div>
 
                             <div class="md-form md-outline">
-                                <input type="email" id="billingEmail" class="form-control">
-                                <label for="billingEmail">Your email</label>
+                                <input type="email" id="billingEmail" name = 'email' class="form-control">
+                                <label for="billingEmail">podaj swój email</label>
                             </div>
 
-                        </form>
 
                         <div class="text-center pt-2 mb-4">
 
@@ -44,6 +44,8 @@
                         </div>
 
                     </section>
+                    </form>
+
                     <!--Section: Block Content-->
 
                 </div>

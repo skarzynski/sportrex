@@ -45,16 +45,6 @@
                             </div>
                         </div>
                         @endforeach
-{{--                        <div class="col-sm">--}}
-{{--                            <div class="md-form md-outline mb-0 mb-lg-4">--}}
-{{--                                <a href="{{ url('/deliveryPost/1' ) }}" type="button" class="btn btn-primary btn-lg waves-effect waves-light">Post office</a>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-{{--                        <div class="col-sm">--}}
-{{--                            <div class="md-form md-outline mb-0 mb-lg-4">--}}
-{{--                                <a href="{{ url('/deliveryBox/1' ) }}" type="button" class="btn btn-primary btn-lg waves-effect waves-light">Paczkomat</a>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
                     </div>
                     </div>
                 </div>
@@ -86,7 +76,7 @@
                                 <span><strong>{{$order->price}} zł</strong></span>
                             </li>
                         </ul>
-                        <button type="button" class="btn btn-primary btn-block waves-effect waves-light" data-toggle="modal" data-target="#paymentModal">Choose Payment</button>
+                        <button type="button" class="btn btn-primary btn-block waves-effect waves-light" data-toggle="modal" data-target="#paymentModal">Wybierz płatność</button>
                     </div>
                 </div>
                 <!-- Card -->

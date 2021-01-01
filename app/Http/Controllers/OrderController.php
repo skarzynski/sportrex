@@ -44,4 +44,32 @@ class OrderController extends Controller
         return redirect(route('Order.cart',$order->id));
     }
 
+    function showCheckOrder(){
+        return view('Orders.checkOrder');
+    }
+
+    function checkOrder(){
+            $id = \request('id');
+            $email = \request('email');
+            DB::table('orders')
+                    ->where('id', '=', $id)
+                    ->where('email', '=', $email)
+                    ->get();
+
+
+        return redirect(route('Order.details',$id ));
+    }
+
+    function orderDetails(Order $order){
+        $products = $order->products;
+        $orderStatus = DB::table('orderstatus')
+            ->where('id', '=', $order->orderStatus_id)
+            ->get();
+        return view('Orders.orderDetails', [
+            'products' => $products,
+            'order' => $order,
+            'orderStatus' => ($orderStatus[0])->name
+        ]);
+    }
+
 }

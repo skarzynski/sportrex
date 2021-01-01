@@ -13,14 +13,13 @@ class Order extends Model
     {
         parent::boot();
 
-        static::retrieved(function($model){
-            $model->calculatePriceAndSave();
-        });
+//        static::retrieved(function($model){
+//            $model->calculatePriceAndSave();
+//        });
         static::updated(function($model){
             $model->calculatePriceAndSave();
         });
     }
-
 
     function calculatePriceAndSave() {
         $products = $this->products;
@@ -28,6 +27,9 @@ class Order extends Model
         foreach ($products as $product):
             $price += $product->bruttoPriceWithDiscount() * $this->AmountOfProduct($product);
         endforeach;
+        if($this->orderStatus_id == 2 or $this->orderStatus_id == 3){
+            $price += $this->delivery->price;
+        }
         $this->price = $price;
         $this->save();
     }
