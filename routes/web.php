@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\DeliveryController;
@@ -14,9 +15,7 @@ use App\Http\Controllers\DeliveryController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('welcome');
+Route::get('/', [ProductController::class, 'index'])->name('welcome');
 
 Route::get('/cart/{order}', [OrderController::class, 'showCart'])->name('Order.cart');
 Route::post('/cart/{order}', [OrderController::class, 'recalculateCart']);
@@ -29,6 +28,9 @@ Route::get('/deliveryPaczkomat/{order}', [DeliveryController::class, 'showPaczko
 Route::post('/deliveryKurier/{order}', [DeliveryController::class, 'doneKurierForm']);
 Route::post('/deliveryPoczta/{order}', [DeliveryController::class, 'donePocztaForm']);
 Route::post('/deliveryPaczkomat/{order}', [DeliveryController::class, 'donePaczkomatForm']);
+
+
+Route::post('/product/{product}/addToCart', [OrderController::class, 'addProduct']);
 
 
 Route::get('/orderDetails/{order}', [OrderController::class, 'orderDetails'])->name('Order.details');

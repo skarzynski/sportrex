@@ -4,8 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Order;
+use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 
 class OrderController extends Controller
 {
@@ -70,6 +73,64 @@ class OrderController extends Controller
             'order' => $order,
             'orderStatus' => ($orderStatus[0])->name
         ]);
+    }
+
+    function createOrder() {
+        $price = 0;
+        $orderDate = now();
+        $orderStatus = 1;
+        $user = null;
+
+        if (Auth::user()) {
+            $user = auth()->user()->id;
+        }
+
+        $orderID = DB::table('orders')
+            ->insertGetId([
+                'price' => $price,
+                'order_date' => $orderDate,
+                'user_id' => $user,
+                'orderStatus_id' => $orderStatus
+            ]);
+
+//        $_SESSION['orderID'] = $orderID;
+        Session::put('orderID', $orderID);
+    }
+
+    function addProduct(Product $product) {
+        if ($product->amount < 1) {
+            return redirect(route('welcome'));
+        }
+//        dd(Session::all());
+//        dd(Session::has('orderID'));
+        if (!Session::has('orderID')) {
+            $this->createOrder();
+        }
+        if (DB::table('order_product')
+            ->where('order_id', Session::get('orderID'))
+            ->where('product_id', $product->id)
+            ->doesntExist()) {
+            DB::table('order_product')->insert([
+                'order_id' => Session::get('orderID'),
+                'product_id' => $product->id,
+                'amount_of_product' => 0
+            ]);
+        }
+
+        $amount = DB::table('order_product')
+            ->where('order_id', Session::get('orderID'))
+            ->where('product_id', $product->id)
+            ->value('amount_of_product');
+
+        DB::table('order_product')
+            ->where('order_id', Session::get('orderID'))
+            ->where('product_id', $product->id)
+            ->update(['amount_of_product' => ++$amount]);
+
+        $product->removeAmount();
+
+        echo ("<script> alert('Dodano do koszyka') </script>");
+        return redirect(route('welcome'));
     }
 
 }

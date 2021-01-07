@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
 return [
@@ -72,7 +73,7 @@ return [
     |
     */
 
-    'connection' => env('SESSION_CONNECTION', null),
+    'connection' => env('SESSION_CONNECTION', env('DB_CONNECTION')),
 
     /*
     |--------------------------------------------------------------------------

@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 class CreateOrderStatusTable extends Migration
@@ -18,6 +19,13 @@ class CreateOrderStatusTable extends Migration
             $table->string('name')->unique();
             $table->timestamps();
         });
+
+        DB::table('orderStatus')
+            ->insert([
+                'name' => 'Created',
+                'created_at' => now(),
+                'updated_at' => now()
+            ]);
     }
 
     /**

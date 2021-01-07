@@ -11,9 +11,26 @@ class Product extends Model
     }
 
     function bruttoPriceWithDiscount()  {
-        return round($this->bruttoPrice() - ($this->bruttoPrice() * $this->discount_percent / 100),2);
+        return number_format(round($this->bruttoPrice() - ($this->bruttoPrice() * $this->discount_percent / 100),2), 2);
     }
+
     function orders() {
         return $this->belongsToMany(Order::class);
+    }
+
+    function categories() {
+        return $this->belongsToMany(Category::class);
+    }
+
+    function addAmount() {
+        $this->amount = $this->amount + 1;
+        $this->save();
+    }
+
+    function removeAmount() {
+        if ($this->amount > 0) {
+            $this->amount = $this->amount - 1;
+            $this->save();
+        }
     }
 }
