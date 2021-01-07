@@ -93,7 +93,6 @@ class OrderController extends Controller
                 'orderStatus_id' => $orderStatus
             ]);
 
-//        $_SESSION['orderID'] = $orderID;
         Session::put('orderID', $orderID);
     }
 
@@ -101,8 +100,6 @@ class OrderController extends Controller
         if ($product->amount < 1) {
             return redirect(route('welcome'));
         }
-//        dd(Session::all());
-//        dd(Session::has('orderID'));
         if (!Session::has('orderID')) {
             $this->createOrder();
         }
