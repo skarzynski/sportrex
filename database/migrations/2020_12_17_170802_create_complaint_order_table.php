@@ -15,8 +15,21 @@ class CreateComplaintOrderTable extends Migration
     {
         Schema::create('complaint_order', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('order_id');
+            $table->foreignId('complaint_id');
             $table->timestamps();
+
+            $table->foreign('order_id')
+                ->references('id')
+                ->on('orders')
+                ->onDelete('cascade');
+
+            $table->foreign('complaint_id')
+                ->references('id')
+                ->on('complaints')
+                ->onDelete('cascade');
         });
+
     }
 
     /**
