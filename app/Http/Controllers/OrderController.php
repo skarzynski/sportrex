@@ -98,6 +98,7 @@ class OrderController extends Controller
 
     function addProduct(Product $product) {
         if ($product->amount < 1) {
+            Session::put('error', 'Brak dostępnych produktów');
             return redirect(route('welcome'));
         }
         if (!Session::has('orderID')) {
@@ -126,7 +127,7 @@ class OrderController extends Controller
 
         $product->removeAmount();
 
-        echo ("<script> alert('Dodano do koszyka') </script>");
+        Session::put('success', 'Dodano do koszyka');
         return redirect(route('welcome'));
     }
 

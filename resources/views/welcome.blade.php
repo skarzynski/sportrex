@@ -1,6 +1,6 @@
 @extends('layouts.layout')
 @section('title')
-    Page title
+    Home
 @endsection
 @section('content')
             <!-- Page Content -->

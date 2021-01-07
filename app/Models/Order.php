@@ -57,5 +57,8 @@ class Order extends Model
         return $this->belongsToMany(Product::class);
     }
 
+    function complaints() {
+        return $this->hasMany(Complaint::class);
+    }
 
 }

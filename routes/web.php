@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ComplaintController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\OrderController;
@@ -29,6 +30,8 @@ Route::post('/deliveryKurier/{order}', [DeliveryController::class, 'doneKurierFo
 Route::post('/deliveryPoczta/{order}', [DeliveryController::class, 'donePocztaForm']);
 Route::post('/deliveryPaczkomat/{order}', [DeliveryController::class, 'donePaczkomatForm']);
 
+Route::get('/complaint/create', [ComplaintController::class, 'create'])->name('complaint.create');
+Route::post('/complaint', [ComplaintController::class, 'store'])->name('complaint.store');
 
 Route::post('/product/{product}/addToCart', [OrderController::class, 'addProduct']);
 

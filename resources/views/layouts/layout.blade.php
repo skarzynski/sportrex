@@ -24,6 +24,7 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/shop-homepage.css') }}" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-notify/0.2.0/css/bootstrap-notify.css">
     <style>
         html, body {
             background-color: #fff;
@@ -77,9 +78,15 @@
         }
     </style>
 
+    {{--    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>--}}
+
 </head>
 
 <body>
+<script src="{{ asset('js/jquery.js') }}"></script>
+<script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
+{{--<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-notify/0.2.0/js/bootstrap-notify.js"></script>--}}
+
 
 <div id="app">
 <!-- Navigation -->
@@ -103,7 +110,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">About</a>
+                        <a class="nav-link" href="{{ route('complaint.create') }}">Make a complaint</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Services</a>
@@ -157,9 +164,11 @@
 {{--</footer>--}}
 
 <!-- Bootstrap core JavaScript -->
-<script src="{{ asset('js/bootstrap.bundle.min.js') }}" defer></script>
-<script src="{{ asset('js/app.js') }}" defer></script>
-<script src="{{ asset('js/jquery.min.js') }}" defer></script>
+<script src="{{ asset('js/app.js') }}"></script>
+
+@include('components.notification')
+
+
 </div>
 </body>
 
