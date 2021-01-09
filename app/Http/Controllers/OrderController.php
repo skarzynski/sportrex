@@ -12,7 +12,23 @@ use Illuminate\Support\Facades\Session;
 
 class OrderController extends Controller
 {
-    function showCart(Order $order) {
+
+
+    function showCart(int $orderId) {
+        if ($orderId == -1){
+            Session::put('cartFailure', 'Twój koszyk jest pusty, dodaj produkt aby móc zrealizować zamówienie');
+            return redirect(route('welcome'));
+        }
+        $order = Order::where('id', '=', $orderId)->firstOrFail();
+
+        if (Auth::check()) {
+            $userID = auth()->user()->id;
+            if ($order->user_id != $userID){
+                Session::put('cartFailure', 'Nie masz dostępu do tego koszyka');
+                return redirect(route('welcome'));
+            }
+        }
+
         $products = $order->products;
         $amount = 0;
         foreach ($products as $product):
@@ -28,9 +44,31 @@ class OrderController extends Controller
     }
 
     function recalculateCart(Order $order){
+
+        if (Auth::check()) {
+            $userID = auth()->user()->id;
+            if ($order->user_id != $userID){
+                Session::put('cartFailure', 'Nie masz dostępu do tego koszyka');
+                return redirect(route('welcome'));
+            }
+        }
+
         $products = $order->products;
         foreach ($products as $product):
             $amount = \request('quantity'.$product->id);
+
+            $productInOrder = DB::table('order_product')
+                ->where('order_id', '=', $order->id)
+                ->where('product_id', '=', $product->id)
+                ->get();
+
+            $amountDiffrent =  ($productInOrder[0])->amount_of_product - $amount;
+            $canUpdate = $product->updateAmountByNumber($amountDiffrent);
+            if (!$canUpdate){
+                Session::put('changeAmountFailure', 'Nie nie można zmienić ilości produktu');
+                return redirect(route('Order.cart',$order->id));
+            }
+
             if ($amount < 1){
                 DB::table('order_product')
                     ->where('order_id', '=', $order->id)
@@ -44,6 +82,7 @@ class OrderController extends Controller
             }
 
         endforeach;
+        Session::put('changeAmountSucces', 'Zmieniono ilość produktu');
         return redirect(route('Order.cart',$order->id));
     }
 
@@ -64,6 +103,15 @@ class OrderController extends Controller
     }
 
     function orderDetails(Order $order){
+
+        if (Auth::check()) {
+            $userID = auth()->user()->id;
+            if ($order->user_id != $userID){
+                Session::put('cartFailure', 'Nie masz dostępu do tego koszyka');
+                return redirect(route('welcome'));
+            }
+        }
+
         $products = $order->products;
         $orderStatus = DB::table('orderstatus')
             ->where('id', '=', $order->orderStatus_id)
@@ -97,6 +145,7 @@ class OrderController extends Controller
     }
 
     function addProduct(Product $product) {
+        //TODO: po zalogowaniu przypisz userid do order
         if ($product->amount < 1) {
             Session::put('error', 'Brak dostępnych produktów');
             return redirect(route('welcome'));

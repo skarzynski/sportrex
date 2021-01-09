@@ -59,6 +59,25 @@
 
 
             </div>
+
+            <div class="card wish-list pb-1">
+
+                <div class="card-body">
+
+                    <h5 class="mb-2">Szczegóły dostawy</h5>
+
+                    <!-- Grid row -->
+                    <div class="row">
+                        Error432: Inpost Api not responding
+
+                    </div>
+                    <!-- Grid row -->
+
+
+                </div>
+            </div>
+
+
             <!--Grid column-->
 
             <div class="col-lg-4">

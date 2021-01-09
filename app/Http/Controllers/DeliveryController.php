@@ -4,11 +4,22 @@ namespace App\Http\Controllers;
 
 use App\Models\Order;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 
 class DeliveryController extends Controller
 {
     function showDeliveries(Order $order) {
+
+        if (Auth::check()) {
+            $userID = auth()->user()->id;
+            if ($order->user_id != $userID){
+                Session::put('cartFailure', 'Nie masz dostępu do tego koszyka');
+                return redirect(route('welcome'));
+            }
+        }
+
         $products = $order->products;
         foreach ($products as $product):
             $product['amount_in_order'] = $order->AmountOfProduct($product);
@@ -17,7 +28,7 @@ class DeliveryController extends Controller
         $deliveries = DB::table('deliveries')
             ->get();
 
-        return view('Orders.delivery', [
+        return view('Deliveries.delivery', [
             'products' => $products,
             'order' => $order,
             'deliveries' => $deliveries
@@ -25,12 +36,21 @@ class DeliveryController extends Controller
     }
 
     function showKurierForm(Order $order){
+
+        if (Auth::check()) {
+            $userID = auth()->user()->id;
+            if ($order->user_id != $userID){
+                Session::put('cartFailure', 'Nie masz dostępu do tego koszyka');
+                return redirect(route('welcome'));
+            }
+        }
+
         $products = $order->products;
         $payments = DB::table('payments')
             ->get();
         $deliveries = DB::table('deliveries')
             ->get();
-        return view('Orders.deliveryKurier', [
+        return view('Deliveries.deliveryKurier', [
             'products' => $products,
             'order' => $order,
             'deliveries' => $deliveries,
@@ -39,13 +59,22 @@ class DeliveryController extends Controller
     }
 
     function showPocztaForm(Order $order){
+
+        if (Auth::check()) {
+            $userID = auth()->user()->id;
+            if ($order->user_id != $userID){
+                Session::put('cartFailure', 'Nie masz dostępu do tego koszyka');
+                return redirect(route('welcome'));
+            }
+        }
+
         $products = $order->products;
         $payments = DB::table('payments')
             ->get();
         $deliveries = DB::table('deliveries')
             ->get();
 
-        return view('Orders.deliveryPoczta', [
+        return view('Deliveries.deliveryPoczta', [
             'products' => $products,
             'order' => $order,
             'deliveries' => $deliveries,
@@ -55,13 +84,22 @@ class DeliveryController extends Controller
 
     function showPaczkomatForm(Order $order)
     {
+
+        if (Auth::check()) {
+            $userID = auth()->user()->id;
+            if ($order->user_id != $userID){
+                Session::put('cartFailure', 'Nie masz dostępu do tego koszyka');
+                return redirect(route('welcome'));
+            }
+        }
+
         $products = $order->products;
         $payments = DB::table('payments')
             ->get();
         $deliveries = DB::table('deliveries')
             ->get();
 
-        return view('Orders.deliveryPaczkomat', [
+        return view('Deliveries.deliveryPaczkomat', [
             'products' => $products,
             'order' => $order,
             'deliveries' => $deliveries,
@@ -71,6 +109,15 @@ class DeliveryController extends Controller
 
     function doneKurierForm(Order $order)
     {
+
+        if (Auth::check()) {
+            $userID = auth()->user()->id;
+            if ($order->user_id != $userID){
+                Session::put('cartFailure', 'Nie masz dostępu do tego koszyka');
+                return redirect(route('welcome'));
+            }
+        }
+
         $delivery = DB::table('deliveries')
             ->where('name','=','Kurier')
             ->get();
@@ -80,6 +127,10 @@ class DeliveryController extends Controller
             ->get();
         $address = \request('form14').\request('form15').\request('form16').\request('form17') ;
         $payment = array_keys($_POST)[1];
+
+        if ($payment == "Karta"){
+            return redirect(route('Payment.Card',$order->id));
+        }
         $paymentObj = DB::table('payments')
             ->where('name','=',$payment)
             ->get();
@@ -90,12 +141,21 @@ class DeliveryController extends Controller
             ->where('id', '=', $order->id)
             ->update(['delivery_address' => $address,'payment_id' => ($paymentObj[0])->id,'email' => $email, 'orderStatus_id' => ($orderStatus[0])->id, 'price' => $price,'delivery_id' => ($delivery[0])->id]);
 
-        echo ("<script> alert('Zamówienie zostało wykonane') </script>");
+        Session::put('OrderDone', 'Zamówienie zostało wykonane');
         return redirect(route('welcome'));
     }
 
     function donePocztaForm(Order $order)
     {
+
+        if (Auth::check()) {
+            $userID = auth()->user()->id;
+            if ($order->user_id != $userID){
+                Session::put('cartFailure', 'Nie masz dostępu do tego koszyka');
+                return redirect(route('welcome'));
+            }
+        }
+
         $delivery = DB::table('deliveries')
             ->where('name','=','Poczta')
             ->get();
@@ -113,13 +173,22 @@ class DeliveryController extends Controller
             ->where('id', '=', $order->id)
             ->update(['delivery_address' => $address,'payment_id' => ($paymentObj[0])->id,'email' => $email, 'orderStatus_id' => ($orderStatus[0])->id, 'price' => $price,'delivery_id' => ($delivery[0])->id]);
 
-        echo ("<script> alert('Zamówienie zostało wykonane') </script>");
+        Session::put('OrderDone', 'Zamówienie zostało wykonane');
 
         return redirect(route('welcome'));
     }
 
     function donePaczkomatForm(Order $order)
     {
+
+        if (Auth::check()) {
+            $userID = auth()->user()->id;
+            if ($order->user_id != $userID){
+                Session::put('cartFailure', 'Nie masz dostępu do tego koszyka');
+                return redirect(route('welcome'));
+            }
+        }
+
         $delivery = DB::table('deliveries')
             ->where('name','=','Paczkomat')
             ->get();
@@ -136,8 +205,7 @@ class DeliveryController extends Controller
         DB::table('orders')
             ->where('id', '=', $order->id)
             ->update(['delivery_address' => $address,'payment_id' => ($paymentObj[0])->id,'email' => $email, 'orderStatus_id' => ($orderStatus[0])->id, 'price' => $price,'delivery_id' => ($delivery[0])->id]);
-
-        echo ("<script> alert('Zamówienie zostało wykonane') </script>");
+        Session::put('OrderDone', 'Zamówienie zostało wykonane');
 
         return redirect(route('welcome'));
     }
