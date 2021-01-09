@@ -83,8 +83,6 @@
 </head>
 
 <body>
-<script src="{{ asset('js/jquery.js') }}"></script>
-<script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
 {{--<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-notify/0.2.0/js/bootstrap-notify.js"></script>--}}
 
 
@@ -164,7 +162,9 @@
 {{--</footer>--}}
 
 <!-- Bootstrap core JavaScript -->
-<script src="{{ asset('js/app.js') }}"></script>
+    <script src="{{ asset('js/jquery.js') }}"></script>
+{{--    <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>--}}
+    <script src="{{ asset('js/app.js') }}"></script>
 
 @include('components.notification')
 
