@@ -77,6 +77,19 @@
         @endphp
         @endif
 
+        @if(Session::has('userFailure'))
+        $.notify({
+            // options
+            message: '{{ Session::get('userFailure') }}'
+        },{
+            // settings
+            element: 'body',
+            type: 'success'
+        });
+        @php
+            Session::forget('userFailure');
+        @endphp
+        @endif
 
         @if(Session::has('OrderDone'))
         $.notify({

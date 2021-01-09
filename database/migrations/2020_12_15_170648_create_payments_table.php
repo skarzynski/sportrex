@@ -18,6 +18,8 @@ class CreatePaymentsTable extends Migration
             $table->string('name')->unique();
             $table->timestamps();
         });
+        DB::table('banks')->insert([  ['name' => 'Blik'],  ['name' => 'Przelew'], ['name' => 'Karta'] ]);
+
     }
 
     /**

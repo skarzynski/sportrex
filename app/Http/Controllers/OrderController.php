@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Order;
 use App\Models\Product;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -13,6 +14,27 @@ use Illuminate\Support\Facades\Session;
 class OrderController extends Controller
 {
 
+    function myOrders(User $user){
+
+        if (Auth::check()) {
+            $userID = auth()->user()->id;
+            if ($user->id != $userID){
+                Session::put('userFailure', 'Nie masz dostępu do tego konta');
+                return redirect(route('welcome'));
+            }
+        }else{
+            Session::put('userFailure', 'Nie masz dostępu do tego konta');
+            return redirect(route('welcome'));
+        }
+
+        $orders = DB::table('orders')
+            ->where('user_id', '=', $userID)
+            ->get();
+
+        return view('Orders.myOrders', [
+            'orders' => $orders
+        ]);
+    }
 
     function showCart(int $orderId) {
         if ($orderId == -1){

@@ -5,7 +5,7 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
-class CreateOrderStatusTable extends Migration
+class CreateBanksTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,14 +14,13 @@ class CreateOrderStatusTable extends Migration
      */
     public function up()
     {
-        Schema::create('orderStatus', function (Blueprint $table) {
+        Schema::create('banks', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->unique();
+            $table->string('name');
             $table->timestamps();
         });
 
-        DB::table('banks')->insert([  ['name' => 'Nieopłacone'],  ['name' => 'W trakcie realizacji'],['name' => 'W doręczeniu'],['name' => 'Zakończone'],['name' => 'Anulowane'], ]);
-
+        DB::table('banks')->insert([  ['name' => 'GetinBank'],  ['name' => 'PKO'] ]);
     }
 
     /**
@@ -31,6 +30,6 @@ class CreateOrderStatusTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('orderStatus');
+        Schema::dropIfExists('banks');
     }
 }
