@@ -33,6 +33,10 @@ Route::post('/deliveryPaczkomat/{order}', [DeliveryController::class, 'donePaczk
 Route::get('/paymentCard/{order}', [PaymentController::class, 'showCardForm'])->name('Payment.Card');
 Route::post('/paymentCard/{order}', [PaymentController::class, 'doneCardForm']);
 
+Route::get('/paymentTransfer/{order}', [PaymentController::class, 'showTransferForm'])->name('Payment.Transfer');
+Route::post('/paymentTransfer/{order}', [PaymentController::class, 'doneTransferForm']);
+
+
 
 Route::get('/complaint/create', [ComplaintController::class, 'create'])->name('complaint.create');
 Route::post('/complaint', [ComplaintController::class, 'store'])->name('complaint.store');
@@ -42,9 +46,8 @@ Route::post('/product/{product}/addToCart', [OrderController::class, 'addProduct
 
 Route::get('/orderDetails/{order}', [OrderController::class, 'orderDetails'])->name('Order.details');
 
-Route::get('/myOrders', function () {
-    return view('myOrders');
-});
+Route::get('/myOrders/{user}', [OrderController::class, 'myOrders'])->name('Order.myOrders');
+
 Route::get('/checkOrder',  [OrderController::class, 'showCheckOrder'])->name('Order.check');
 Route::post('/checkOrder',  [OrderController::class, 'checkOrder']);
 

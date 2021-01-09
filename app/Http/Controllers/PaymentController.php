@@ -21,14 +21,56 @@ class PaymentController extends Controller
             }
         }
 
-        $products = $order->products;
-        $payments = DB::table('payments')
-            ->get();
-        $deliveries = DB::table('deliveries')
-            ->get();
-
         return view('Payments.paymentCard', [
             'order' => $order,
         ]);
     }
+
+    function doneCardForm(Order $order)
+    {
+
+        if (Auth::check()) {
+            $userID = auth()->user()->id;
+            if ($order->user_id != $userID){
+                Session::put('cartFailure', 'Nie masz dostępu do tego koszyka');
+                return redirect(route('welcome'));
+            }
+        }
+        Session::forget('orderID');
+        Session::put('OrderDone', 'Zamówienie zostało wykonane');
+        return redirect(route('welcome'));
+    }
+
+    function showTransferForm(Order $order)
+    {
+        if (Auth::check()) {
+            $userID = auth()->user()->id;
+            if ($order->user_id != $userID){
+                Session::put('cartFailure', 'Nie masz dostępu do tego koszyka');
+                return redirect(route('welcome'));
+            }
+        }
+        $banks = DB::table('banks')
+            ->get();
+
+        return view('Payments.paymentTransfer', [
+            'order' => $order,
+            'banks' => $banks
+        ]);
+    }
+
+    function doneTransferForm(Order $order)
+    {
+        if (Auth::check()) {
+            $userID = auth()->user()->id;
+            if ($order->user_id != $userID){
+                Session::put('cartFailure', 'Nie masz dostępu do tego koszyka');
+                return redirect(route('welcome'));
+            }
+        }
+        Session::forget('orderID');
+        Session::put('OrderDone', 'Zamówienie zostało wykonane');
+        return redirect(route('welcome'));
+    }
+
 }

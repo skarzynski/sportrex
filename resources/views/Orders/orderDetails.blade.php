@@ -39,7 +39,7 @@
 
                                             <div class="def-number-input number-input mb-0 w-50">
                                                 <span>ilość: </span>
-                                                <input class="quantity w-50" min="0" name="quantity{{$product->id}}" value="{{$product->amount_in_order}}" type="number">
+                                                <input disabled class="quantity w-50" min="0" name="quantity{{$product->id}}" value="{{$product->amount_in_order}}" type="number">
                                             </div>
 
                                         </div>
@@ -77,7 +77,7 @@
                                 <div>
                                     <strong>Cena zamówienia: </strong>
                                 </div>
-                                <span><strong>{{$order->price}}</strong></span>
+                                <span><strong>{{$order->price}} zł</strong></span>
                             </li>
                             <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 mb-3">
                                 <div>

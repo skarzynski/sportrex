@@ -19,6 +19,8 @@ class CreateDeliveriesTable extends Migration
             $table->double('price');
             $table->timestamps();
         });
+
+        DB::table('deliveries')->insert([  ['name' => 'Kurier','price' => 12],  ['name' => 'Poczta','price' => 10],['name' => 'Paczkomat','price' => 8] ]);
     }
 
     /**

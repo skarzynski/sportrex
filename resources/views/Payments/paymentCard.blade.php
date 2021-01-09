@@ -13,7 +13,6 @@
 
                 <!--Grid column-->
                 <div class="col-lg-8 mb-4">
-                    -->
 
                     <div class="card wish-list pb-1">
 

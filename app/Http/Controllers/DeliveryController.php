@@ -46,6 +46,9 @@ class DeliveryController extends Controller
         }
 
         $products = $order->products;
+        foreach ($products as $product):
+            $product['amount_in_order'] = $order->AmountOfProduct($product);
+        endforeach;
         $payments = DB::table('payments')
             ->get();
         $deliveries = DB::table('deliveries')
@@ -69,6 +72,9 @@ class DeliveryController extends Controller
         }
 
         $products = $order->products;
+        foreach ($products as $product):
+            $product['amount_in_order'] = $order->AmountOfProduct($product);
+        endforeach;
         $payments = DB::table('payments')
             ->get();
         $deliveries = DB::table('deliveries')
@@ -94,6 +100,9 @@ class DeliveryController extends Controller
         }
 
         $products = $order->products;
+        foreach ($products as $product):
+            $product['amount_in_order'] = $order->AmountOfProduct($product);
+        endforeach;
         $payments = DB::table('payments')
             ->get();
         $deliveries = DB::table('deliveries')
@@ -128,9 +137,7 @@ class DeliveryController extends Controller
         $address = \request('form14').\request('form15').\request('form16').\request('form17') ;
         $payment = array_keys($_POST)[1];
 
-        if ($payment == "Karta"){
-            return redirect(route('Payment.Card',$order->id));
-        }
+
         $paymentObj = DB::table('payments')
             ->where('name','=',$payment)
             ->get();
@@ -141,8 +148,15 @@ class DeliveryController extends Controller
             ->where('id', '=', $order->id)
             ->update(['delivery_address' => $address,'payment_id' => ($paymentObj[0])->id,'email' => $email, 'orderStatus_id' => ($orderStatus[0])->id, 'price' => $price,'delivery_id' => ($delivery[0])->id]);
 
-        Session::put('OrderDone', 'Zamówienie zostało wykonane');
-        return redirect(route('welcome'));
+        if ($payment == "Karta"){
+            return redirect(route('Payment.Card',$order->id));
+        }elseif ($payment == "Przelew"){
+            return redirect(route('Payment.Transfer',$order->id));
+        }else{
+            Session::forget('orderID');
+            Session::put('OrderDone', 'Zamówienie zostało wykonane');
+            return redirect(route('welcome'));
+        }
     }
 
     function donePocztaForm(Order $order)
@@ -173,9 +187,15 @@ class DeliveryController extends Controller
             ->where('id', '=', $order->id)
             ->update(['delivery_address' => $address,'payment_id' => ($paymentObj[0])->id,'email' => $email, 'orderStatus_id' => ($orderStatus[0])->id, 'price' => $price,'delivery_id' => ($delivery[0])->id]);
 
-        Session::put('OrderDone', 'Zamówienie zostało wykonane');
-
-        return redirect(route('welcome'));
+        if ($payment == "Karta"){
+            return redirect(route('Payment.Card',$order->id));
+        }elseif ($payment == "Przelew"){
+            return redirect(route('Payment.Transfer',$order->id));
+        }else{
+            Session::forget('orderID');
+            Session::put('OrderDone', 'Zamówienie zostało wykonane');
+            return redirect(route('welcome'));
+        }
     }
 
     function donePaczkomatForm(Order $order)
@@ -205,9 +225,15 @@ class DeliveryController extends Controller
         DB::table('orders')
             ->where('id', '=', $order->id)
             ->update(['delivery_address' => $address,'payment_id' => ($paymentObj[0])->id,'email' => $email, 'orderStatus_id' => ($orderStatus[0])->id, 'price' => $price,'delivery_id' => ($delivery[0])->id]);
-        Session::put('OrderDone', 'Zamówienie zostało wykonane');
-
-        return redirect(route('welcome'));
+        if ($payment == "Karta"){
+            return redirect(route('Payment.Card',$order->id));
+        }elseif ($payment == "Przelew"){
+            return redirect(route('Payment.Transfer',$order->id));
+        }else{
+            Session::forget('orderID');
+            Session::put('OrderDone', 'Zamówienie zostało wykonane');
+            return redirect(route('welcome'));
+        }
     }
 
 }
