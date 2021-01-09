@@ -46,6 +46,7 @@
         @endif
 
 
+
         @if(Session::has('error'))
         $.notify({
             // options
@@ -57,6 +58,69 @@
         });
         @php
             Session::forget('error');
+        @endphp
+        @endif
+
+
+
+        @if(Session::has('cartFailure'))
+        $.notify({
+            // options
+            message: '{{ Session::get('cartFailure') }}'
+        },{
+            // settings
+            element: 'body',
+            type: 'success'
+        });
+        @php
+            Session::forget('cartFailure');
+        @endphp
+        @endif
+
+
+        @if(Session::has('OrderDone'))
+        $.notify({
+            // options
+            message: '{{ Session::get('OrderDone') }}'
+        },{
+            // settings
+            element: 'body',
+            type: 'success'
+        });
+        @php
+            Session::forget('OrderDone');
+        @endphp
+        @endif
+
+
+        @if(Session::has('changeAmountFailure'))
+        $.notify({
+            // options
+            message: '{{ Session::get('changeAmountFailure') }}'
+        },{
+            // settings
+            element: 'body',
+            type: 'success'
+        });
+        @php
+            Session::forget('changeAmountFailure');
+        @endphp
+        @endif
+
+
+
+
+        @if(Session::has('changeAmountSucces'))
+        $.notify({
+            // options
+            message: '{{ Session::get('changeAmountSucces') }}'
+        },{
+            // settings
+            element: 'body',
+            type: 'success'
+        });
+        @php
+            Session::forget('changeAmountSucces');
         @endphp
         @endif
     });

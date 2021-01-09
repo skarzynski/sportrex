@@ -111,6 +111,17 @@
                         <a class="nav-link" href="{{ route('complaint.create') }}">Make a complaint</a>
                     </li>
                     <li class="nav-item">
+                        @if(Session::has('orderID'))
+                            <a class="nav-link" href="{{ route('Order.cart', Session::get('orderID') )}}">Koszyk</a>
+
+                        @else
+                            <a class="nav-link" href="{{ route('Order.cart', -1)}}">Koszyk</a>
+                        @endif
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('Order.check')}}">Sprawdź status zamówienia</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" href="#">Services</a>
                     </li>
                     <li class="nav-item">

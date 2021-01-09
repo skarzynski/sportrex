@@ -98,7 +98,7 @@
                                 <span><strong>{{$order->price}} zł</strong></span>
                             </li>
                         </ul>
-                        <a href="{{ url('/delivery/'.$order->id ) }}" class="btn btn-primary btn-block waves-effect waves-light">Przejdź dalej</a>
+                        <a href="{{ url('../delivery/'.$order->id ) }}" class="btn btn-primary btn-block waves-effect waves-light">Przejdź dalej</a>
                     </div>
                 </div>
                 <!-- Card -->

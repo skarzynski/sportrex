@@ -33,4 +33,20 @@ class Product extends Model
             $this->save();
         }
     }
+
+    function updateAmountByNumber(int $number) {
+        if ($this->amount + $number < 0){
+            return false;
+        }else{
+            if ($this->amount >= 0) {
+                $this->amount = $this->amount + $number;
+                $this->save();
+                return true;
+            }else{
+                return false;
+            }
+        }
+
+    }
+
 }
