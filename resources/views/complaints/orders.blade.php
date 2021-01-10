@@ -8,7 +8,7 @@
     <section>
 
         <!--Grid row-->
-        @foreach($orders as $order)
+        @forelse($orders as $order)
             <div class="row">
                 <!-- Card -->
                 <div class="card mb-3" style="width:100%" >
@@ -37,7 +37,9 @@
                     </div>
                 </div>
             </div>
-        @endforeach
+        @empty
+            <h1>Nie posiadasz zamówień, na które można złożyć reklamacje</h1>
+        @endforelse
 
 
     </section>
