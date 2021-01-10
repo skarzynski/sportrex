@@ -28,8 +28,7 @@ class OrderController extends Controller
             return redirect(route('welcome'));
         }
 
-        $orders = DB::table('orders')
-            ->where('user_id', '=', $userID)
+        $orders = Order::where('user_id', $userID)
             ->get();
 
         return view('Orders.myOrders', [
