@@ -30,7 +30,7 @@
                                 @guest
                                     <input type="text" id="order_id" name="order_id" class="form-control" value="{{ old('order_id') }}">
                                 @else
-                                    <input type="text" id="order_id" name="order_id" class="form-control" value="{{ $order->id }}" disabled readonly aria-readonly="true">
+                                    <input type="text" id="order_id" name="order_id" class="form-control" value="{{ $order->id }}" readonly aria-readonly="true">
                                 @endguest
                                 <label for="order_id">Wpisz numer zamówienia</label>
                             </div>
@@ -42,7 +42,7 @@
                                 @guest
                                     <input type="text" id="delivery_address" name="delivery_address" class="form-control" value="{{ old('delivery_address') }}">
                                 @else
-                                    <input type="text" id="delivery_address" name="delivery_address" class="form-control" value="{{ $order->delivery_address }}" disabled readonly aria-readonly="true">
+                                    <input type="text" id="delivery_address" name="delivery_address" class="form-control" value="{{ $order->delivery_address }}" readonly aria-readonly="true">
                                 @endguest
                                 <label for="delivery_address">Wpisz adres dostawy</label>
                             </div>
@@ -54,7 +54,7 @@
                                 @guest
                                     <input type="email" id="email_address" name="email_address" class="form-control" value="{{ old('email_address') }}">
                                 @else
-                                    <input type="email" id="email_address" name="email_address" class="form-control" value="{{ auth()->user()->email }}" disabled readonly aria-readonly="true">
+                                    <input type="email" id="email_address" name="email_address" class="form-control" value="{{ auth()->user()->email }}" readonly aria-readonly="true">
                                 @endguest
 
                                 <label for="email_address">Wpisz adres email</label>
