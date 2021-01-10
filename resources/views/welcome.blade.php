@@ -10,9 +10,11 @@
 
                             <h1 class="my-4">Sportrex</h1>
                             <div class="list-group">
-                                @foreach($categories as $category)
+                                @forelse($categories as $category)
                                     <a href="{{ route('welcome', ['category' => $category->name]) }}" class="list-group-item">{{ $category->name }}</a>
-                                @endforeach
+                                @empty
+                                    <p>Brak kategorii</p>
+                                @endforelse
                             </div>
 
                         </div>
@@ -49,7 +51,7 @@
 
                             <div class="row">
 
-                                @foreach($products as $product)
+                                @forelse($products as $product)
                                     <div class="col-lg-4 col-md-6 mb-4">
                                         <div class="card h-100">
                                             <a href="#"><img class="card-img-top" src="https://placehold.it/700x400" alt=""></a>
@@ -72,7 +74,9 @@
                                             </div>
                                         </div>
                                     </div>
-                                @endforeach
+                                @empty
+                                    <h1>Brak produktów</h1>
+                                @endforelse
 
                             </div>
                             <!-- /.row -->
