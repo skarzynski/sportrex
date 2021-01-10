@@ -108,7 +108,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('complaint.create') }}">Złóż reklamację</a>
+                        <a class="nav-link" href="{{ Auth::check() ? route('order.closed') : route('complaint.create') }}">Złóż reklamację</a>
                     </li>
                     <li class="nav-item">
                         @if(Session::has('orderID'))

@@ -3,25 +3,26 @@
 namespace App\Http\Controllers;
 
 use App\Models\Complaint;
+use App\Models\Order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 
-$validationErrorMessages = [
-    'order_id.required' => 'Pole numer zamówienia jest wymagane',
-    'order_id.exists' => 'Podany numer zamówienia jest niepoprawny',
-    'delivery_address.required' => 'Pole adres dostawy jest wymagane',
-    'email_address.required' => 'Pole adres email jest wymagane',
-    'complaint_details.required' => 'Pole szczegóły reklamacji jest wymagane'
-];
-
 
 class ComplaintController extends Controller
 {
 
-    function create() {
-        return view('complaints.create');
+    function create(Order $order) {
+
+        if ($order->user_id != auth()->user()->id) {
+            Session::put('error', 'Nie masz dostępu do tego zamówienia');
+            return redirect(route('welcome'));
+        }
+
+        return view('complaints.create', [
+            'order' => $order
+        ]);
     }
 
     function store() {
