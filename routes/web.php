@@ -36,10 +36,11 @@ Route::post('/paymentCard/{order}', [PaymentController::class, 'doneCardForm']);
 Route::get('/paymentTransfer/{order}', [PaymentController::class, 'showTransferForm'])->name('Payment.Transfer');
 Route::post('/paymentTransfer/{order}', [PaymentController::class, 'doneTransferForm']);
 
-
+Route::get('/order/{order}/complaint', [ComplaintController::class, 'create'])->middleware('auth');
 
 Route::get('/complaint/create', [ComplaintController::class, 'create'])->name('complaint.create');
 Route::post('/complaint', [ComplaintController::class, 'store'])->name('complaint.store');
+Route::get('/complaint/orders', [OrderController::class, 'showClosedUserOrders'])->name('order.closed')->middleware('auth');
 
 Route::post('/product/{product}/addToCart', [OrderController::class, 'addProduct']);
 

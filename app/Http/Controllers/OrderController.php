@@ -145,6 +145,16 @@ class OrderController extends Controller
         ]);
     }
 
+    function showClosedUserOrders() {
+        $orders = Order::where('user_id', \auth()->user()->id)
+            ->where('orderStatus_id', 5)
+            ->get();
+
+        return view('complaints.orders', [
+            'orders' => $orders
+        ]);
+    }
+
     function createOrder() {
         $price = 0;
         $orderDate = now();
