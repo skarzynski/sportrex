@@ -21,6 +21,7 @@ class CreateProductsTable extends Migration
             $table->double('tax_percent');
             $table->double('discount_percent')->nullable();
             $table->integer('amount');
+            $table->string('picture')->nullable();
             $table->timestamps();
         });
 
