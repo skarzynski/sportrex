@@ -42,7 +42,7 @@ class CreateOrdersTable extends Migration
 
             $table->foreign('orderStatus_id')
                 ->references('id')
-                ->on('orderStatus')
+                ->on('order_statuses')
                 ->onDelete('cascade');
 
         });

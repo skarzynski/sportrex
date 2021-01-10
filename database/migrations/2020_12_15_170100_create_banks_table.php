@@ -20,7 +20,6 @@ class CreateBanksTable extends Migration
             $table->timestamps();
         });
 
-        DB::table('banks')->insert([  ['name' => 'GetinBank'],  ['name' => 'PKO'] ]);
     }
 
     /**

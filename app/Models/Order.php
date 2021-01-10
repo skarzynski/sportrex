@@ -9,18 +9,6 @@ class Order extends Model
 {
     protected $fillable =['delivery_address','price','order_date','email'];
 
-    protected static function boot()
-    {
-        parent::boot();
-
-//        static::retrieved(function($model){
-//            $model->calculatePriceAndSave();
-//        });
-        static::updated(function($model){
-            $model->calculatePriceAndSave();
-        });
-    }
-
     function calculatePriceAndSave() {
         $products = $this->products;
         $price = 0;
