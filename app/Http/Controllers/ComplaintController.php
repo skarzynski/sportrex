@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Complaint;
 use App\Models\Order;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
@@ -15,7 +16,7 @@ class ComplaintController extends Controller
 
     function create(Order $order) {
 
-        if ($order->user_id != auth()->user()->id) {
+        if (Auth::check() && $order->user_id != auth()->user()->id) {
             Session::put('error', 'Nie masz dostępu do tego zamówienia');
             return redirect(route('welcome'));
         }
