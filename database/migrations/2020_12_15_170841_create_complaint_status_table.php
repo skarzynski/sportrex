@@ -20,10 +20,7 @@ class CreateComplaintStatusTable extends Migration
             $table->timestamps();
         });
 
-        DB::table('complaintStatus')
-            ->insert([
-                'name' => 'Utworzone'
-            ]);
+
     }
 
     /**

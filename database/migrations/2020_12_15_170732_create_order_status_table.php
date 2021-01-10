@@ -14,21 +14,13 @@ class CreateOrderStatusTable extends Migration
      */
     public function up()
     {
-        Schema::create('orderStatus', function (Blueprint $table) {
+        Schema::create('order_statuses', function (Blueprint $table) {
             $table->id();
             $table->string('name')->unique();
             $table->timestamps();
         });
 
-        DB::table('orderStatus')
-            ->insert([
-                ['name' => 'Utworzone'],
-                ['name' => 'Nieopłacone'],
-                ['name' => 'W trakcie realizacji'],
-                ['name' => 'W doręczeniu'],
-                ['name' => 'Zakończone'],
-                ['name' => 'Anulowane']
-            ]);
+
     }
 
     /**
@@ -38,6 +30,6 @@ class CreateOrderStatusTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('orderStatus');
+        Schema::dropIfExists('order_statuses');
     }
 }

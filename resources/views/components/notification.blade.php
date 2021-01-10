@@ -136,6 +136,25 @@
             Session::forget('changeAmountSucces');
         @endphp
         @endif
+
+
+        @if(Session::has('checkOrderFailure'))
+        $.notify({
+            // options
+            message: '{{ Session::get('checkOrderFailure') }}'
+        },{
+            // settings
+            element: 'body',
+            type: 'success'
+        });
+        @php
+            Session::forget('checkOrderFailure');
+        @endphp
+        @endif
+
+
     });
+
+
 
 </script>

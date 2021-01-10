@@ -131,10 +131,10 @@ class DeliveryController extends Controller
             ->where('name','=','Kurier')
             ->get();
         $price = $order->price + ($delivery[0])->price;
-        $orderStatus = DB::table('orderstatus')
+        $orderStatus = DB::table('order_statuses')
             ->where('name','=','W trakcie realizacji')
             ->get();
-        $address = \request('form14').\request('form15').\request('form16').\request('form17') ;
+        $address = \request('form14')." ".\request('form15')." ".\request('form16')." ".\request('form17') ;
         $payment = array_keys($_POST)[1];
 
 
@@ -174,7 +174,7 @@ class DeliveryController extends Controller
             ->where('name','=','Poczta')
             ->get();
         $price = ($order->price) + (($delivery[0])->price);
-        $orderStatus = DB::table('orderstatus')
+        $orderStatus = DB::table('order_statuses')
             ->where('name','=','W trakcie realizacji')
             ->get();
         $address = \request('form14').\request('form15').\request('form16').\request('form17') ;
@@ -212,7 +212,7 @@ class DeliveryController extends Controller
         $delivery = DB::table('deliveries')
             ->where('name','=','Paczkomat')
             ->get();
-        $orderStatus = DB::table('orderstatus')
+        $orderStatus = DB::table('order_statuses')
             ->where('name','=','W trakcie realizacji')
             ->get();
         $price = $order->price + ($delivery[0])->price;

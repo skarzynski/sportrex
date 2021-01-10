@@ -29,6 +29,8 @@ class CreateCategoryProductTable extends Migration
                 ->on('categories')
                 ->onDelete('cascade');
 
+
+
         });
     }
 

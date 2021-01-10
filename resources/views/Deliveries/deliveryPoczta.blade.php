@@ -99,26 +99,26 @@
 
                         <!-- Country -->
                         <div class="md-form md-outline mt-0">
-                            <input type="text" id="form14" name="form14" placeholder="Country name" class="form-control">
+                            <input required type="text" id="form14" name="form14" placeholder="Country name" class="form-control">
                             <label for="form14">Country</label>
                         </div>
 
                         <!-- Address Part 2 -->
                         <div class="md-form md-outline">
-                            <input type="text" id="form15" name="form15" placeholder="Apartment, suite, unit etc. (optional)"
+                            <input required type="text" id="form15" name="form15" placeholder="Apartment, suite, unit etc. (optional)"
                                    class="form-control">
                             <label for="form15">Address</label>
                         </div>
 
                         <!-- Postcode / ZIP -->
                         <div class="md-form md-outline">
-                            <input type="text" id="form16" name="form16" class="form-control">
+                            <input required type="text" id="form16" name="form16" class="form-control">
                             <label for="form16">Postcode / ZIP</label>
                         </div>
 
                         <!-- Town / City -->
                         <div class="md-form md-outline">
-                            <input type="text" id="form17"  name="form17" class="form-control">
+                            <input required type="text" id="form17"  name="form17" class="form-control">
                             <label for="form17">Town / City</label>
                         </div>
 
@@ -130,7 +130,7 @@
 
                         <!-- Email address -->
                         <div class="md-form md-outline">
-                            <input type="email" id="form19" name="form19" class="form-control">
+                            <input required type="email" id="form19" name="form19" class="form-control">
                             <label for="form19">Email address</label>
                         </div>
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Order;
+use App\Models\OrderStatus;
 use App\Models\Product;
 use App\User;
 use Illuminate\Http\Request;
@@ -57,7 +58,7 @@ class OrderController extends Controller
             $product['amount_in_order'] = $order->AmountOfProduct($product);
             $amount++;
         endforeach;
-
+        $order->calculatePriceAndSave();
         return view('Orders.cart', [
             'products' => $products,
             'amount' => $amount,
@@ -104,6 +105,8 @@ class OrderController extends Controller
             }
 
         endforeach;
+
+        $order->calculatePriceAndSave();
         Session::put('changeAmountSucces', 'Zmieniono ilość produktu');
         return redirect(route('Order.cart',$order->id));
     }
@@ -115,33 +118,31 @@ class OrderController extends Controller
     function checkOrder(){
             $id = \request('id');
             $email = \request('email');
-            DB::table('orders')
-                    ->where('id', '=', $id)
-                    ->where('email', '=', $email)
-                    ->get();
 
+            $order = Order::where('id', $id)
+                    ->where('email', $email)
+                    ->first();
 
-        return redirect(route('Order.details',$id ));
+        if ($order != null){
+            return $this->orderDetails($order);
+        }else{
+            Session::put('checkOrderFailure', 'Takie zamówienie nie istnieje lub nieprawidłowy email');
+            return view('Orders.checkOrder');
+        }
     }
 
     function orderDetails(Order $order){
-
-        if (Auth::check()) {
-            $userID = auth()->user()->id;
-            if ($order->user_id != $userID){
-                Session::put('cartFailure', 'Nie masz dostępu do tego koszyka');
-                return redirect(route('welcome'));
-            }
-        }
-
         $products = $order->products;
-        $orderStatus = DB::table('orderstatus')
-            ->where('id', '=', $order->orderStatus_id)
-            ->get();
+        $orderStatus = OrderStatus::where('id', $order->orderStatus_id)
+            ->firstOrFail();
+
+        foreach ($products as $product):
+            $product['amount_in_order'] = $order->AmountOfProduct($product);
+        endforeach;
         return view('Orders.orderDetails', [
             'products' => $products,
             'order' => $order,
-            'orderStatus' => ($orderStatus[0])->name
+            'orderStatus' => $orderStatus->name
         ]);
     }
 
