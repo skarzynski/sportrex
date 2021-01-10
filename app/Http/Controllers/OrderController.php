@@ -167,7 +167,6 @@ class OrderController extends Controller
     }
 
     function addProduct(Product $product) {
-        //TODO: po zalogowaniu przypisz userid do order
         if ($product->amount < 1) {
             Session::put('error', 'Brak dostępnych produktów');
             return redirect(route('welcome'));
