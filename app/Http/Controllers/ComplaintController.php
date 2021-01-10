@@ -29,6 +29,21 @@ class ComplaintController extends Controller
     function store() {
         $this->validateComplaint();
 
+        $order = Order::find(\request('order_id'));
+
+        if (Auth::check()) {
+            if (\auth()->user()->id != $order->user_id) {
+                Session::put('error', 'Nie masz dostępu do tego zamówienia');
+                return redirect(route('welcome'));
+            }
+        } else if ($order->user_id != null) {
+            Session::put('error', 'Nie masz dostępu do tego zamówienia');
+            return redirect(route('welcome'));
+        } else if (\request('delivery_address') != $order->delivery_address || \request('email_address') != $order->email) {
+            Session::put('error', 'Niepoprawne dane');
+            return redirect(route('complaint.create'));
+        }
+
         $complaint = new Complaint();
 
         $complaint->details = \request('complaint_details');
