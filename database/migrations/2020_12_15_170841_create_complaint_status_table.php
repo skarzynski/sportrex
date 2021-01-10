@@ -22,7 +22,7 @@ class CreateComplaintStatusTable extends Migration
 
         DB::table('complaintStatus')
             ->insert([
-                'name' => 'Created'
+                'name' => 'Utworzone'
             ]);
     }
 

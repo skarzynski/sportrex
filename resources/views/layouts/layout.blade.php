@@ -103,12 +103,12 @@
             @if (Route::has('login'))
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item active">
-                        <a class="nav-link" href="{{ route('welcome') }}">Home
+                        <a class="nav-link" href="{{ route('welcome') }}">Strona główna
                             <span class="sr-only">(current)</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('complaint.create') }}">Make a complaint</a>
+                        <a class="nav-link" href="{{ route('complaint.create') }}">Złóż reklamację</a>
                     </li>
                     <li class="nav-item">
                         @if(Session::has('orderID'))
@@ -121,19 +121,13 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('Order.check')}}">Sprawdź status zamówienia</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Services</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Contact</a>
-                    </li>
                     @guest
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('login') }}">Login</a>
+                            <a class="nav-link" href="{{ route('login') }}">Logowanie</a>
                         </li>
                         @if (Route::has('register'))
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('register') }}">Register</a>
+                                <a class="nav-link" href="{{ route('register') }}">Rejestracja</a>
                             </li>
                         @endif
                     @else
@@ -146,7 +140,7 @@
                                 <a class="dropdown-item" href="{{ route('logout') }}"
                                    onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                    {{ __('Logout') }}
+                                    {{ __('Wyloguj') }}
                                 </a>
 
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
