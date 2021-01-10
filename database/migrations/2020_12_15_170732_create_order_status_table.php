@@ -20,8 +20,15 @@ class CreateOrderStatusTable extends Migration
             $table->timestamps();
         });
 
-        DB::table('orderStatus')->insert([ ['name' => 'Utworzone'], ['name' => 'Nieopłacone'],  ['name' => 'W trakcie realizacji'],['name' => 'W doręczeniu'],['name' => 'Zakończone'],['name' => 'Anulowane'], ]);
-
+        DB::table('orderStatus')
+            ->insert([
+                ['name' => 'Utworzone'],
+                ['name' => 'Nieopłacone'],
+                ['name' => 'W trakcie realizacji'],
+                ['name' => 'W doręczeniu'],
+                ['name' => 'Zakończone'],
+                ['name' => 'Anulowane']
+            ]);
     }
 
     /**
