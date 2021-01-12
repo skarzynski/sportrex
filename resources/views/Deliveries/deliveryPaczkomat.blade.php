@@ -5,8 +5,26 @@
 @endsection
 @section('content')
 
-
-
+    <script src="https://geowidget.easypack24.net/js/sdk-for-javascript.js"></script>
+    <script type="text/javascript">
+        window.easyPackAsyncInit = function () {
+            easyPack.init({
+                defaultLocale: 'pl',
+                mapType: 'osm',
+                searchType: 'osm',
+                points: {
+                    types: ['parcel_locker']
+                },
+                map: {
+                    initialTypes: ['parcel_locker']
+                }
+            });
+            var map = easyPack.mapWidget('easypack-map', function(point) {
+                $('#address').attr('value',  point.address_details.city + " " + point.address_details.post_code + " " + point.address_details.street + " " + point.address_details.building_number);
+            });
+        };
+    </script>
+    <link rel="stylesheet" href="https://geowidget.easypack24.net/css/easypack.css"/>
     <!--Section: Block Content-->
     <section>
 <form method="POST">
@@ -57,26 +75,25 @@
                     </div>
                 </div>
 
+                <div class="card wish-list pb-1">
 
-            </div>
+                    <div class="card-body">
 
-            <div class="card wish-list pb-1">
+                        <h5 class="mb-2">Szczegóły dostawy</h5>
+                        <!-- Email address -->
+                        <div class="md-form md-outline">
+                            <input required type="email" id="form19" name="form19" class="form-control">
+                            <label for="form19">Email address</label>
+                        </div>
 
-                <div class="card-body">
-
-                    <h5 class="mb-2">Szczegóły dostawy</h5>
-
-                    <!-- Grid row -->
-                    <div class="row">
-                        Error432: Inpost Api not responding
-
+                        <input name="address" id="address" style = "width:100%;">
+                        <label for="address">Paczkomat adres</label>
+                        <!-- Grid row -->
+                        <div id="easypack-map"></div>
                     </div>
                     <!-- Grid row -->
-
-
                 </div>
             </div>
-
 
             <!--Grid column-->
 

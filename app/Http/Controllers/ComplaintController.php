@@ -15,7 +15,6 @@ class ComplaintController extends Controller
 {
 
     function create(Order $order) {
-
         if (Auth::check() && $order->user_id != auth()->user()->id) {
             Session::put('error', 'Nie masz dostępu do tego zamówienia');
             return redirect(route('welcome'));

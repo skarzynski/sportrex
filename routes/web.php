@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\DeliveryController;
 use App\Http\Controllers\PaymentController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -23,12 +24,12 @@ Route::get('/cart/{order}', [OrderController::class, 'showCart'])->name('Order.c
 Route::post('/cart/{order}', [OrderController::class, 'recalculateCart']);
 
 Route::get('/delivery/{order}', [DeliveryController::class, 'showDeliveries'])->name('Deliveries.deliveries');
-Route::get('/deliveryKurier/{order}', [DeliveryController::class, 'showKurierForm']);
-Route::get('/deliveryPoczta/{order}', [DeliveryController::class, 'showPocztaForm']);
-Route::get('/deliveryPaczkomat/{order}', [DeliveryController::class, 'showPaczkomatForm']);
-Route::post('/deliveryKurier/{order}', [DeliveryController::class, 'doneKurierForm']);
-Route::post('/deliveryPoczta/{order}', [DeliveryController::class, 'donePocztaForm']);
-Route::post('/deliveryPaczkomat/{order}', [DeliveryController::class, 'donePaczkomatForm']);
+Route::get('/deliveryKurier/{order}', [DeliveryController::class, 'showCourierForm']);
+Route::get('/deliveryPoczta/{order}', [DeliveryController::class, 'showPostForm']);
+Route::get('/deliveryPaczkomat/{order}', [DeliveryController::class, 'showParcelLockerForm']);
+Route::post('/deliveryKurier/{order}', [DeliveryController::class, 'doneCourierForm']);
+Route::post('/deliveryPoczta/{order}', [DeliveryController::class, 'donePostForm']);
+Route::post('/deliveryPaczkomat/{order}', [DeliveryController::class, 'doneParcelLockerForm']);
 
 Route::get('/paymentCard/{order}', [PaymentController::class, 'showCardForm'])->name('Payment.Card');
 Route::post('/paymentCard/{order}', [PaymentController::class, 'doneCardForm']);

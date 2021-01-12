@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Order;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
@@ -35,7 +34,7 @@ class DeliveryController extends Controller
         ]);
     }
 
-    function showKurierForm(Order $order){
+    function showCourierForm(Order $order){
 
         if (Auth::check()) {
             $userID = auth()->user()->id;
@@ -61,7 +60,7 @@ class DeliveryController extends Controller
         ]);
     }
 
-    function showPocztaForm(Order $order){
+    function showPostForm(Order $order){
 
         if (Auth::check()) {
             $userID = auth()->user()->id;
@@ -88,7 +87,7 @@ class DeliveryController extends Controller
         ]);
     }
 
-    function showPaczkomatForm(Order $order)
+    function showParcelLockerForm(Order $order)
     {
 
         if (Auth::check()) {
@@ -116,7 +115,7 @@ class DeliveryController extends Controller
         ]);
     }
 
-    function doneKurierForm(Order $order)
+    function doneCourierForm(Order $order)
     {
 
         if (Auth::check()) {
@@ -159,7 +158,7 @@ class DeliveryController extends Controller
         }
     }
 
-    function donePocztaForm(Order $order)
+    function donePostForm(Order $order)
     {
 
         if (Auth::check()) {
@@ -177,7 +176,7 @@ class DeliveryController extends Controller
         $orderStatus = DB::table('order_statuses')
             ->where('name','=','W trakcie realizacji')
             ->get();
-        $address = \request('form14').\request('form15').\request('form16').\request('form17') ;
+        $address = \request('form14')." ".\request('form15')." ".\request('form16')." ".\request('form17') ;
         $payment = array_keys($_POST)[1];
         $paymentObj = DB::table('payments')
             ->where('name','=',$payment)
@@ -198,7 +197,7 @@ class DeliveryController extends Controller
         }
     }
 
-    function donePaczkomatForm(Order $order)
+    function doneParcelLockerForm(Order $order)
     {
 
         if (Auth::check()) {
@@ -216,7 +215,7 @@ class DeliveryController extends Controller
             ->where('name','=','W trakcie realizacji')
             ->get();
         $price = $order->price + ($delivery[0])->price;
-        $address = \request('form14').\request('form15').\request('form16').\request('form17') ;
+        $address = \request('address');
         $payment = array_keys($_POST)[1];
         $paymentObj = DB::table('payments')
             ->where('name','=',$payment)
