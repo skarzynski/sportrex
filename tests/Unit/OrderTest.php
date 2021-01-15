@@ -30,4 +30,21 @@ class OrderTest extends TestCase
 
         $this->assertTrue($orders->contains($order));
     }
+
+    public function test_if_the_user_can_see_only_its_own_closed_orders() {
+
+        $user = factory(User::class)->create();
+        $otherUser = factory(User::class)->create();
+
+        $order = factory(Order::class)->create([
+            'user_id' => $user->id,
+            'orderStatus_id' => 5
+        ]);
+
+        $this->actingAs($otherUser);
+
+        $orders = Order::userClosed()->get();
+
+        $this->assertFalse($orders->contains($order));
+    }
 }
