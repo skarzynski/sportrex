@@ -75,12 +75,7 @@ class ComplaintController extends Controller
             'email_address' => 'required',
             'complaint_details' => 'required'
         ], $validationErrorMessages);
-//        return request()->validate([
-//            'order_id' => 'required|exists:orders,id',
-//            'delivery_address' => 'required',
-//            'email_address' => 'required',
-//            'complaint_details' => 'required'
-//        ]);
+
         return $validator->validate();
     }
 }
