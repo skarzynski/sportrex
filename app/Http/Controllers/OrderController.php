@@ -146,9 +146,7 @@ class OrderController extends Controller
     }
 
     function showClosedUserOrders() {
-        $orders = Order::where('user_id', \auth()->user()->id)
-            ->where('orderStatus_id', 5)
-            ->get();
+        $orders = Order::userClosed()->get();
 
         return view('complaints.orders', [
             'orders' => $orders

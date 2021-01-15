@@ -49,4 +49,9 @@ class Order extends Model
         return $this->hasMany(Complaint::class);
     }
 
+    public function scopeUserClosed($query) {
+        return $query->where('user_id', \auth()->user()->id)
+            ->where('orderStatus_id', 5);
+    }
+
 }
