@@ -14,15 +14,6 @@ class OrderTest extends TestCase
     use RefreshDatabase;
     use InteractsWithAuthentication;
 
-    /**
-     * A basic unit test example.
-     *
-     * @return void
-     */
-    public function testExample()
-    {
-        $this->assertTrue(true);
-    }
 
     public function test_if_the_order_status_is_5_the_order_is_closed() {
 
