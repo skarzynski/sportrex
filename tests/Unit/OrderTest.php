@@ -2,6 +2,7 @@
 
 namespace Tests\Unit;
 
+use App\Http\Controllers\OrderController;
 use App\Models\Order;
 use App\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -46,5 +47,25 @@ class OrderTest extends TestCase
         $orders = Order::userClosed()->get();
 
         $this->assertFalse($orders->contains($order));
+    }
+
+    public function test_if_created_order_exists_in_database() {
+        $orderController = new OrderController();
+        $orderID = $orderController->createOrder();
+
+        $order = Order::find($orderID);
+
+        $this->assertNotNull($order);
+    }
+
+    public function test_if_created_order_belongs_to_user() {
+        $orderController = new OrderController();
+        $user = factory(User::class)->create();
+
+        $this->actingAs($user);
+        $orderID = $orderController->createOrder();
+        $order = Order::find($orderID);
+
+        $this->assertTrue($order->user_id == $user->id);
     }
 }

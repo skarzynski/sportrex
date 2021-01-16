@@ -153,7 +153,7 @@ class OrderController extends Controller
         ]);
     }
 
-    function createOrder() {
+    function createOrder(): int {
         $price = 0;
         $orderDate = now();
         $orderStatus = 1;
@@ -172,6 +172,7 @@ class OrderController extends Controller
             ]);
 
         Session::put('orderID', $orderID);
+        return $orderID;
     }
 
     function addProduct(Product $product) {
