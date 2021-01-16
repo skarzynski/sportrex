@@ -51,7 +51,7 @@ class OrderTest extends TestCase
 
     public function test_if_created_order_exists_in_database() {
         $orderController = new OrderController();
-        $orderID = $orderController->createOrder();
+        $orderID = Order::createOrder();
 
         $order = Order::find($orderID);
 
@@ -63,7 +63,7 @@ class OrderTest extends TestCase
         $user = factory(User::class)->create();
 
         $this->actingAs($user);
-        $orderID = $orderController->createOrder();
+        $orderID = Order::createOrder();
         $order = Order::find($orderID);
 
         $this->assertTrue($order->user_id == $user->id);

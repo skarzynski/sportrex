@@ -145,34 +145,13 @@ class OrderController extends Controller
         ]);
     }
 
-    function showClosedUserOrders() {
+    function showClosedUserOrders()
+    {
         $orders = Order::userClosed()->get();
 
         return view('complaints.orders', [
             'orders' => $orders
         ]);
-    }
-
-    function createOrder(): int {
-        $price = 0;
-        $orderDate = now();
-        $orderStatus = 1;
-        $user = null;
-
-        if (Auth::user()) {
-            $user = auth()->user()->id;
-        }
-
-        $orderID = DB::table('orders')
-            ->insertGetId([
-                'price' => $price,
-                'order_date' => $orderDate,
-                'user_id' => $user,
-                'orderStatus_id' => $orderStatus
-            ]);
-
-        Session::put('orderID', $orderID);
-        return $orderID;
     }
 
     function addProduct(Product $product) {
@@ -181,7 +160,7 @@ class OrderController extends Controller
             return redirect(route('welcome'));
         }
         if (!Session::has('orderID')) {
-            $this->createOrder();
+            Order::createOrder();
         }
         if (DB::table('order_product')
             ->where('order_id', Session::get('orderID'))

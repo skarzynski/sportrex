@@ -3,7 +3,9 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 
 class Order extends Model
 {
@@ -52,6 +54,28 @@ class Order extends Model
     public function scopeUserClosed($query) {
         return $query->where('user_id', \auth()->user()->id)
             ->where('orderStatus_id', 5);
+    }
+
+    static function createOrder(): int {
+        $price = 0;
+        $orderDate = now();
+        $orderStatus = 1;
+        $user = null;
+
+        if (Auth::user()) {
+            $user = auth()->user()->id;
+        }
+
+        $orderID = DB::table('orders')
+            ->insertGetId([
+                'price' => $price,
+                'order_date' => $orderDate,
+                'user_id' => $user,
+                'orderStatus_id' => $orderStatus
+            ]);
+
+        Session::put('orderID', $orderID);
+        return $orderID;
     }
 
 }
