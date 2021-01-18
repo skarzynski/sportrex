@@ -37,10 +37,18 @@ class Order extends Model
     }
 
     function AmountOfProduct(Product $product){
-        return (DB::table('order_product')
+        if (DB::table('order_product')
             ->where('order_id', '=', $this->id)
             ->where('product_id', '=', $product->id)
-            ->get())[0]->amount_of_product;
+            ->doesntExist())
+        {
+            return 0;
+        }
+        $amount = (DB::table('order_product')
+            ->where('order_id', '=', $this->id)
+            ->where('product_id', '=', $product->id)
+            ->first())->amount_of_product;
+        return $amount;
     }
 
     function products() {
