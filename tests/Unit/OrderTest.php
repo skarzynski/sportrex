@@ -50,7 +50,6 @@ class OrderTest extends TestCase
     }
 
     public function test_if_created_order_exists_in_database() {
-        $orderController = new OrderController();
         $orderID = Order::createOrder();
 
         $order = Order::find($orderID);
@@ -59,7 +58,6 @@ class OrderTest extends TestCase
     }
 
     public function test_if_created_order_belongs_to_user() {
-        $orderController = new OrderController();
         $user = factory(User::class)->create();
 
         $this->actingAs($user);
@@ -67,5 +65,37 @@ class OrderTest extends TestCase
         $order = Order::find($orderID);
 
         $this->assertTrue($order->user_id == $user->id);
+    }
+
+    public function test_if_created_order_has_status_one() {
+        $expectedStatus = 1;
+
+        $orderID = Order::createOrder();
+        $order = Order::find($orderID);
+
+        $this->assertEquals($expectedStatus, $order->orderStatus_id);
+    }
+
+    public function test_if_guest_created_order_has_not_belong_to_any_user() {
+        $orderID = Order::createOrder();
+        $order = Order::find($orderID);
+
+        $this->assertNull($order->user_id);
+    }
+
+    public function test_if_created_order_has_price_zero() {
+        $expectedPrice = 0;
+
+        $orderID = Order::createOrder();
+        $order = Order::find($orderID);
+
+        $this->assertEquals($expectedPrice, $order->price);
+    }
+
+    public function test_if_created_order_has_current_or_previous_date() {
+        $orderID = Order::createOrder();
+        $order = Order::find($orderID);
+
+        $this->assertTrue($order->order_date <= now());
     }
 }
