@@ -15,6 +15,9 @@ class OrderTest extends TestCase
     use RefreshDatabase;
     use InteractsWithAuthentication;
 
+    /***
+     * scopeUserClosed tests
+     */
 
     public function test_if_the_order_status_is_5_the_order_is_closed() {
 
@@ -48,6 +51,10 @@ class OrderTest extends TestCase
 
         $this->assertFalse($orders->contains($order));
     }
+
+    /***
+     * createOrder tests
+     */
 
     public function test_if_created_order_exists_in_database() {
         $orderID = Order::createOrder();
